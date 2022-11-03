@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium_ui.base_page import BasePage
 from selenium_ui.conftest import print_timing
 from util.conf import JIRA_SETTINGS
+from selenium_ui.jira.pages.pages import Issue
 
 """
 def app_specific_action(webdriver, datasets):
@@ -31,8 +32,6 @@ def app_specific_action_flower_global(webdriver, datasets):
         @print_timing("selenium_view_flower_global:load")
         def sub_measure():
             page.go_to_url(f"{JIRA_SETTINGS.server_url}/secure/FlowerBpm.jspa?p=repository")
-            page.wait_for_page_loaded()
-            # WebDriverWait(page, 10).until(EC.presence_of_element_located((By.ID, "app-header"))
         sub_measure()
     measure()
 
