@@ -61,7 +61,18 @@ Write your custom selenium scripts in `app/extension/jira/extension_ui.py`.
 Refer to `app/selenium_ui/jira/modules.py` for examples.
 """
 
+"""
+def test_1_selenium_view_user_story_map(jira_webdriver, jira_datasets, jira_screen_shots):
+    extension_ui.app_specific_action(jira_webdriver, jira_datasets)
+"""
 
+def test_1_selenium_view_flower_global(jira_webdriver, jira_datasets, jira_screen_shots):
+    extension_ui.app_specific_action_flower_global(jira_webdriver, jira_datasets)
+
+def test_1_selenium_view_flower_issues(jira_webdriver, jira_datasets, jira_screen_shots):
+    extension_ui.app_specific_action_flower_issues(jira_webdriver, jira_datasets)
+
+    
 # def test_1_selenium_custom_action(jira_webdriver, jira_datasets, jira_screen_shots):
 #     extension_ui.app_specific_action(jira_webdriver, jira_datasets)
 
