@@ -1,44 +1,47 @@
+
 import random
 
 from selenium.webdriver.common.by import By
-
 from selenium_ui.base_page import BasePage
 from selenium_ui.conftest import print_timing
-from selenium_ui.jira.pages.pages import Login
 from util.conf import JIRA_SETTINGS
 
-
+"""
 def app_specific_action(webdriver, datasets):
     page = BasePage(webdriver)
-    if datasets['custom_issues']:
-        issue_key = datasets['custom_issue_key']
 
-    # To run action as specific user uncomment code bellow.
-    # NOTE: If app_specific_action is running as specific user, make sure that app_specific_action is running
-    # just before test_2_selenium_z_log_out action
-    #
-    # @print_timing("selenium_app_specific_user_login")
-    # def measure():
-    #     def app_specific_user_login(username='admin', password='admin'):
-    #         login_page = Login(webdriver)
-    #         login_page.delete_all_cookies()
-    #         login_page.go_to()
-    #         login_page.set_credentials(username=username, password=password)
-    #         if login_page.is_first_login():
-    #             login_page.first_login_setup()
-    #         if login_page.is_first_login_second_page():
-    #             login_page.first_login_second_page_setup()
-    #         login_page.wait_for_page_loaded()
-    #     app_specific_user_login(username='admin', password='admin')
-    # measure()
-
-    @print_timing("selenium_app_custom_action")
+    @print_timing("selenium_view_user_story_map")
     def measure():
-        @print_timing("selenium_app_custom_action:view_issue")
+
+        @print_timing("selenium_view_user_story_map:load")
         def sub_measure():
-            page.go_to_url(f"{JIRA_SETTINGS.server_url}/browse/{issue_key}")
-            page.wait_until_visible((By.ID, "summary-val"))  # Wait for summary field visible
-            page.wait_until_visible((By.ID, "ID_OF_YOUR_APP_SPECIFIC_UI_ELEMENT"))  # Wait for you app-specific UI element by ID selector
+            page.go_to_url(f"{JIRA_SETTINGS.server_url}/projects/AANES?rapidView=61&selectedItem=com.bit.story-map__ausm-provided-link-to-panel")
+            # page.wait_until_visible((By.ID, "app-header"))
+            # WebDriverWait(page, 10).until(EC.presence_of_element_located((By.ID, "app-header"))
+        sub_measure()
+    measure()
+"""
+
+def app_specific_action_flower_global(webdriver, datasets):
+    page = BasePage(webdriver)
+
+    @print_timing("selenium_view_flower_global")
+    def measure():
+
+        @print_timing("selenium_view_flower_global:load")
+        def sub_measure():
+            page.go_to_url(f"{JIRA_SETTINGS.server_url}/secure/FlowerBpm.jspa?p=repository")
+            page.wait_for_page_loaded()
+            # WebDriverWait(page, 10).until(EC.presence_of_element_located((By.ID, "app-header"))
         sub_measure()
     measure()
 
+def app_specific_action_flower_issues(webdriver, datasets):
+    issue_page = Issue(webdriver, issue_key=datasets['issue_key'])
+
+    @print_timing("selenium_view_flower_issues")
+    def measure():
+        issue_page.go_to()
+        issue_page.wait_for_page_loaded()
+
+    measure()
